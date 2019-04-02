@@ -1,0 +1,88 @@
+package students;
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+public class BinaryTree {
+
+	protected BtNode root;
+
+	/* Constructor */
+	public BinaryTree() {
+		root = null;
+	}
+
+	/* Function to check if tree is empty */
+	public boolean isEmpty() {
+		return root == null;
+	}
+
+	/* Functions to insert data */
+	public void insert(int data) {
+		root = insert(null, root, data);
+	}
+
+	/* Function to insert data recursively */
+	private BtNode insert(BtNode parent, BtNode node, int data) {
+		if (node == null) {
+			node = new BtNode(data);
+			node.parent = parent;
+		} else {
+			if (data <= node.getData()) {
+				node.left = insert(node, node.left, data);
+			} else {
+				node.right = insert(node, node.right, data);
+			}
+		}
+		return node;
+	}
+
+	/////////////////////////////////////////// CODE BY STUDENTS
+
+	public void printBFS() {
+		Queue<BtNode> queue = new LinkedList<>();
+		queue.add(root);
+		BtNode node;
+		while ((node = queue.poll()).data != 288) {
+			if (node.left != null) {
+				queue.add(node.left);
+			}
+			if (node.right != null) {
+				queue.add(node.right);
+			}
+		}
+		// print the path
+		String path;
+		path=String.valueOf(node.data);
+		while ((node = node.parent) != null) {
+			path=String.valueOf(node.data)+" "+path;
+		}
+		
+		System.out.println("The path by BFS is:"+path);
+	}
+
+	public void printDFS() {
+		Stack<BtNode> stack = new Stack<>();
+		stack .push(root);
+		BtNode node;
+		while ((node = stack .pop()).data != 288) {
+			if (node.right != null) {
+				stack .push(node.right);
+			}
+			if (node.left != null) {
+				stack.push(node.left);
+			}
+		}
+		// print the path
+				String path;
+				path=String.valueOf(node.data);
+				while ((node = node.parent) != null) {
+					path=String.valueOf(node.data)+" "+path;
+				}
+				
+				System.out.println("The path by DFS is:"+path);
+	}
+
+}
